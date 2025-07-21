@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"flag"
+
+	"github.com/barcode-api/internal/routes"
+)
 
 func main() {
-	fmt.Println("Hello")
+
+	isReleaseMode := flag.Bool("release", false, "Indica se a aplicação está modo de release")
+	flag.Parse()
+
+	routes.HandlerRoutes(*isReleaseMode)
 }
