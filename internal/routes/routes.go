@@ -15,5 +15,8 @@ func HandlerRoutes(isReleaseMode bool) {
 
 	r := gin.Default()
 
+	UserRoutes(r)
+	ProductRoutes(r)
+
 	r.Run(":" + port)
 }

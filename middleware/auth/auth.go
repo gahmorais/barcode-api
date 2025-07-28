@@ -30,7 +30,7 @@ func Authentication(c *gin.Context) {
 	json.Unmarshal(bodyBytes, &user)
 
 	userDefault := models.User{
-		Name:     "Gabriel",
+		UserName: "Gabriel",
 		Password: "123456",
 	}
 
