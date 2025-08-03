@@ -61,7 +61,8 @@ func (u *UserRepository) updatePassword(newPassword string) error {
 func (u *UserRepository) getByUsername(username string) (models.User, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	filter := bson.D{{"username", username}}
+
+	filter := bson.D{{Key: "username", Value: username}}
 	var user models.User
 	err := u.database.Collection(u.collection).FindOne(ctx, filter).Decode(&user)
 	if err != nil {

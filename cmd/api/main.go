@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/barcode-api/config"
-	"github.com/barcode-api/db"
+	"github.com/barcode-api/internal/database"
 	"github.com/barcode-api/internal/routes"
 )
 
@@ -15,7 +15,7 @@ func main() {
 	flag.Parse()
 	env := config.NewEnv()
 	strCon := fmt.Sprintf("mongodb://%s:%s@%s:%d", env.User, env.Password, env.Address, env.Port)
-	if err := db.InitDb(strCon, env.DatabaseName); err != nil {
+	if err := database.InitDb(strCon, env.DatabaseName); err != nil {
 		panic(err)
 	}
 	routes.HandlerRoutes(*isReleaseMode)
