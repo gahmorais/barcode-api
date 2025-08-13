@@ -10,7 +10,7 @@ type env struct {
 
 func NewEnv() *env {
 	return &env{
-		DatabaseName: "local",
+		DatabaseName: "barcode-api",
 		User:         "root",
 		Password:     "example",
 		Address:      "localhost",

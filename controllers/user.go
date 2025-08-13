@@ -12,17 +12,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type UserController struct {
+type User struct {
 	repository repository.UserRepository
 }
 
-func NewUserController(repo repository.UserRepository) *UserController {
-	return &UserController{
+func NewUserController(repo repository.UserRepository) *User {
+	return &User{
 		repository: repo,
 	}
 }
 
-func (u *UserController) CreateUser(c *gin.Context) {
+func (u *User) CreateUser(c *gin.Context) {
 	body := c.Request.Body
 	bodyContent, err := io.ReadAll(body)
 
@@ -65,7 +65,7 @@ func (u *UserController) CreateUser(c *gin.Context) {
 	})
 }
 
-func (u *UserController) Login(c *gin.Context) {
+func (u *User) Login(c *gin.Context) {
 	body := c.Request.Body
 	bodyContent, err := io.ReadAll(body)
 	if err != nil {

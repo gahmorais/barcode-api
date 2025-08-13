@@ -9,6 +9,11 @@ import (
 	"github.com/barcode-api/internal/routes"
 )
 
+type application struct {
+	port      int
+	jwtSecret string
+}
+
 func main() {
 
 	isReleaseMode := flag.Bool("release", false, "Indica se a aplicação está modo de release")

@@ -1,0 +1,345 @@
+db = db.getSiblingDB("barcode-api");
+
+db.users.insertMany([
+  {
+    username: "test",
+    password: "$2a$10$nt1dUg6K3dySneluSrUTbeHIMPrGwYFr94ZvNgoD0wZROmjcNL0ai",
+  },
+  {
+    username: "test1",
+    password: "test1",
+  },
+]);
+
+db.products.insertMany([
+  {
+    description: "Pão de Forma Panco",
+    barcode: "7891203010056",
+    categories: "",
+  },
+  {
+    description: "Feijão Ki Caldo 1Kg",
+    barcode: "7896116900029",
+    categories: "",
+  },
+  {
+    description: "Filtro Aroma Max 103",
+    barcode: "7891021001946",
+    categories: "",
+  },
+  {
+    description: "Leite Integral Tirol 1L",
+    barcode: "7896256600223",
+    categories: "",
+  },
+  {
+    description: "Milho Pipoca CBE T",
+    barcode: "7896064102872",
+    categories: "",
+  },
+  {
+    description: "Granola Mãe Terra 750G Cacau",
+    barcode: "7891150097858",
+    categories: "",
+  },
+  {
+    description: "Azeitona Raivolli S/ Caroço 150g",
+    barcode: "7896237902292",
+    categories: "",
+  },
+  {
+    description: "Café Jardim 500g",
+    barcode: "7896054600029",
+    categories: "",
+  },
+  {
+    description: "Farofa Yoki Trad. 800g",
+    barcode: "7891095911394",
+    categories: "",
+  },
+  {
+    description: "Esponja Scotch M Uso C/ 4",
+    barcode: "7891040299614",
+    categories: "",
+  },
+  {
+    description: "Biscoito Piraquê Agua Sal",
+    barcode: "7896024761729",
+    categories: "",
+  },
+  {
+    description: "Chá Leão 20 Ma+La+G",
+    barcode: "7891098042231",
+    categories: "",
+  },
+  {
+    description: "Chocolate Lacta 40% 85g Ori",
+    barcode: "7622210699992",
+    categories: "",
+  },
+  {
+    description: "Chocolate Hersheys 85g Dark",
+    barcode: "7899970401657",
+    categories: "",
+  },
+  {
+    description: "Fermento Dona Benta 100g",
+    barcode: "7896005279489",
+    categories: "",
+  },
+  {
+    description: "Maizena Marilan 350g",
+    barcode: "7896003738520",
+    categories: "",
+  },
+  {
+    description: "Coco Ralado Sococo 50g",
+    barcode: "7896004400020",
+    categories: "",
+  },
+  {
+    description: "Conjunto Pote Sant L5 P4",
+    barcode: "7896355751062",
+    categories: "",
+  },
+  {
+    description: "Iogurte Vigor 1,260g Morango",
+    barcode: "7891999011435",
+    categories: "",
+  },
+  {
+    description: "Oleo Soja Vitaliv 900ml",
+    barcode: "7898247780297",
+    categories: "",
+  },
+  {
+    description: "Margarina Qualy 500g c/ Sal",
+    barcode: "7893000394209",
+    categories: "",
+  },
+  {
+    description: "Palito Fiat B C/ 100",
+    barcode: "7896007972142",
+    categories: "",
+  },
+  {
+    description: "Sardinha Gomes da Costa 75g Molho de Tomate",
+    barcode: "7891167021020",
+    categories: "",
+  },
+  {
+    description: "Açúcar Demerara Caravelas 1Kg",
+    barcode: "7896894900235",
+    categories: "",
+  },
+  {
+    description: "Amaciante Ypê Pro Roup 7L",
+    barcode: "7896098903070",
+    categories: "",
+  },
+  {
+    description: "Agua Indaia S/G 1,5L",
+    barcode: "7896445490116",
+    categories: "",
+  },
+  {
+    description: "Arroz Camil T1 5Kg",
+    barcode: "7896006711155",
+    categories: "",
+  },
+  {
+    description: "Desodorante Dove 200g CUID",
+    barcode: "7891150068797",
+    categories: "",
+  },
+  {
+    description: "Creme Trat Skala 1Kg",
+    barcode: "7897042007226",
+    categories: "",
+  },
+  {
+    description: "Creme de Leite Italac 200g",
+    barcode: "7898080640222",
+    categories: "",
+  },
+  {
+    description: "Leite Condensado Piracanjuba 395g",
+    barcode: "7898215152002",
+    categories: "",
+  },
+  {
+    description: "Shampoo Palmolive 650ml",
+    barcode: "7509546674940",
+    categories: "",
+  },
+  {
+    description: "Lava Roupas Brilhante 800g Antib",
+    barcode: "7891150066625",
+    categories: "",
+  },
+  {
+    description: "Absorvente Intimus SV C32",
+    barcode: "7896007544042",
+    categories: "",
+  },
+  {
+    description: "Veja 750ml Trad",
+    barcode: "7891035216206",
+    categories: "",
+  },
+  {
+    description: "Vinagre Vital Alc 750 BC",
+    barcode: "7896048284631",
+    categories: "",
+  },
+  {
+    description: "Alcool gel Lvar 440g",
+    barcode: "7898650860944",
+    categories: "",
+  },
+  {
+    description: "Pap Higiênico Max Pure L16 P15",
+    barcode: "7898962794074",
+    categories: "",
+  },
+  {
+    description: "Conjunto Copo Oca 6x300ml",
+    barcode: "7891155054139",
+    categories: "",
+  },
+  {
+    description: "Bistequitos 1Kg FGO",
+    barcode: "7898626402505",
+    categories: "",
+  },
+  {
+    description: "Amaciante Ype 1,5L Delicado",
+    barcode: "7896098901571",
+    categories: "",
+  },
+  {
+    description: "Sacola Assai Verde",
+    barcode: "7899739506616",
+    categories: "",
+  },
+  {
+    description: "Sabão Coco Ype 5x160g",
+    barcode: "7896098905982",
+    categories: "",
+  },
+  {
+    description: "Brilhante 2,4Kg L Total",
+    barcode: "7891150086562",
+    categories: "",
+  },
+  {
+    description: "Papel Higiênico Max 30M L12 P11",
+    barcode: "7898962794067",
+    categories: "",
+  },
+  {
+    description: "Absorvente Intimus N C/30 Suave",
+    barcode: "7896007550890",
+    categories: "",
+  },
+  {
+    description: "Sabonete Lux 85g Gard/Ame",
+    barcode: "7891150095304",
+    categories: "",
+  },
+  {
+    description: "Detergente Ypê 500ml Neutro",
+    barcode: "7896098900208",
+    categories: "",
+  },
+  {
+    description: "Granola Mãe Terra 750g Castanhas",
+    barcode: "7891150097841",
+    categories: "",
+  },
+  {
+    description: "Iogurte Danone 1250g Morango",
+    barcode: "7891025121923",
+    categories: "",
+  },
+  {
+    description: "Aveia Quaker 450g Fino",
+    barcode: "7892840815264",
+    categories: "",
+  },
+  {
+    description: "Agua sanitaria candura 2L",
+    barcode: "7896105500094",
+    categories: "",
+  },
+  {
+    description: "Escova Extra Clean L3P2",
+    barcode: "7891024116128",
+    categories: "",
+  },
+  {
+    description: "Creme Dental Colgate 220g Geng",
+    barcode: "7509546668079",
+    categories: "",
+  },
+  {
+    description: "VEja Multiuso 500ml Azul",
+    barcode: "7891035210006",
+    categories: "",
+  },
+  {
+    description: "Café Brasileiro Pouch 500g",
+    barcode: "7891018001386",
+    categories: "",
+  },
+  {
+    description: "Farinha de trigo D. Benta 1Kg",
+    barcode: "7896005202074",
+    categories: "",
+  },
+  {
+    description: "Azeite Extra Virgem Gomes da Costa",
+    barcode: "7891167000001",
+    categories: "",
+  },
+  {
+    description: "Wafer Bauducco 104g Maxi Chocolate",
+    barcode: "7891962071688",
+    categories: "",
+  },
+  {
+    description: "Achoc. em Pó Nescau 350g",
+    barcode: "7891000412855",
+    categories: "",
+  },
+  {
+    description: "Leite Condensado Italac 395g",
+    barcode: "7898080640413",
+    categories: "",
+  },
+  {
+    description: "Fuba Mimoso Yoki 1Kg",
+    barcode: "7891095200467",
+    categories: "",
+  },
+  {
+    description: "Macarrão Adria 500g Esp 8",
+    barcode: "7896205788040",
+    categories: "",
+  },
+  {
+    description: "Catchup Heinz 567g",
+    barcode: "7896102503722",
+    categories: "",
+  },
+  {
+    description: "Sardinhas Robinson Cr Óleo",
+    barcode: "7898943163011",
+    categories: "",
+  },
+  {
+    description: "Açúcar Organico Itaja 1Kg",
+    barcode: "7898051687775",
+    categories: "",
+  },
+]);

@@ -10,6 +10,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./seed.js:/docker-entrypoint-initdb.d/seed.js
 
   mongo-express:
     image: mongo-express

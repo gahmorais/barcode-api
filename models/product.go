@@ -8,8 +8,8 @@ type Product struct {
 }
 
 type ProductResponse struct {
-	Id         string `json:"id"`
-	Name       string `json:"name"`
-	Barcode    string `json:"barcode"`
-	Categories string `json:"categories"`
+	Id          string `bson:"id"`
+	Description string `bson:"name"`
+	Barcode     string `bson:"barcode"`
+	Categories  string `bson:"categories"`
 }

@@ -25,7 +25,7 @@ func NewUserRepository(db *mongo.Database) UserRepository {
 }
 
 func (u *UserRepository) Login(username string, password string) error {
-	user, err := u.getByUsername(username)
+	user, err := u.GetByUsername(username)
 	if err != nil {
 		fmt.Println(err.Error())
 		return fmt.Errorf("usuário ou senha incorretos")
@@ -58,7 +58,7 @@ func (u *UserRepository) updatePassword(newPassword string) error {
 	return nil
 }
 
-func (u *UserRepository) getByUsername(username string) (models.User, error) {
+func (u *UserRepository) GetByUsername(username string) (models.User, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
