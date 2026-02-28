@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"log"
 
 	"github.com/barcode-api/config"
 	"github.com/barcode-api/internal/database"
@@ -10,18 +10,17 @@ import (
 )
 
 type application struct {
-	port      int
 	jwtSecret string
 }
 
 func main() {
-
 	isReleaseMode := flag.Bool("release", false, "Indica se a aplicação está modo de release")
 	flag.Parse()
+
 	env := config.NewEnv()
-	strCon := fmt.Sprintf("mongodb://%s:%s@%s:%d", env.User, env.Password, env.Address, env.Port)
-	if err := database.InitDb(strCon, env.DatabaseName); err != nil {
-		panic(err)
+	if err := database.InitDb(env.ConnectionString(), env.DatabaseName); err != nil {
+		log.Fatalf("erro ao iniciar banco de dados: %v", err)
 	}
-	routes.HandlerRoutes(*isReleaseMode)
+
+	routes.HandlerRoutes(*isReleaseMode, env.APIPort)
 }
