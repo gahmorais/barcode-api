@@ -7,10 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func UserRoutes(router *gin.Engine) {
+func UserRoutes(router *gin.Engine, jwtSecret string) {
 	db := database.GetDb()
 	userRepository := repository.NewUserRepository(db)
-	userController := controllers.NewUserController(&userRepository)
+	userController := controllers.NewUserController(&userRepository, jwtSecret)
 
 	group := router.Group("/user")
 

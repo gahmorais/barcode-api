@@ -14,6 +14,7 @@ type Env struct {
 	Port         int
 	APIPort      int
 	MongoURI     string
+	JWTSecret    string
 }
 
 func NewEnv() *Env {
@@ -25,6 +26,7 @@ func NewEnv() *Env {
 		Port:         getIntEnv("MONGO_PORT", 27017),
 		APIPort:      getIntEnv("API_PORT", 1111),
 		MongoURI:     getStringEnv("MONGO_URI", ""),
+		JWTSecret:    getStringEnv("JWT_SECRET", "secret-key"),
 	}
 }
 

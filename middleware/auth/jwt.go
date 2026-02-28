@@ -7,32 +7,40 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var secretKey = []byte("secret-key")
-
-func GenerateTokenJwt() (string, error) {
+func GenerateTokenJwt(username string, secret string) (string, error) {
 	tokenJwt := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"user": "admin",
-		"exp":  time.Now().Add(time.Hour * 24).Unix(),
+		"username": username,
+		"exp":      time.Now().Add(time.Hour * 24).Unix(),
 	})
-	tokenString, err := tokenJwt.SignedString(secretKey)
+
+	tokenString, err := tokenJwt.SignedString([]byte(secret))
 	if err != nil {
 		return "", err
 	}
+
 	return tokenString, nil
 }
 
-func VerifyToken(tokenString string) error {
+func VerifyToken(tokenString string, secret string) (jwt.MapClaims, error) {
 	token, err := jwt.Parse(tokenString, func(t *jwt.Token) (any, error) {
-		return secretKey, nil
-	})
+		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("método de assinatura inválido")
+		}
 
+		return []byte(secret), nil
+	})
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if !token.Valid {
-		return fmt.Errorf("token inválido")
+		return nil, fmt.Errorf("token inválido")
 	}
 
-	return nil
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		return nil, fmt.Errorf("claims inválidos")
+	}
+
+	return claims, nil
 }

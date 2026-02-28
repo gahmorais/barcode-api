@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 
+	"github.com/barcode-api/middleware/auth"
 	"github.com/barcode-api/models"
 	"github.com/barcode-api/response"
 	"github.com/gin-gonic/gin"
@@ -13,6 +14,7 @@ import (
 
 type User struct {
 	repository userRepository
+	jwtSecret  string
 }
 
 type userRepository interface {
@@ -20,9 +22,10 @@ type userRepository interface {
 	Login(username string, password string) error
 }
 
-func NewUserController(repo userRepository) *User {
+func NewUserController(repo userRepository, jwtSecret string) *User {
 	return &User{
 		repository: repo,
+		jwtSecret:  jwtSecret,
 	}
 }
 
@@ -94,8 +97,16 @@ func (u *User) Login(c *gin.Context) {
 		return
 	}
 
-	//gerar token jwt e devolver ao usuário
-	c.JSON(http.StatusOK, response.Message{
-		Text: "Login Ok",
+	token, err := auth.GenerateTokenJwt(user.UserName, u.jwtSecret)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, response.Message{
+			Text: "erro ao gerar token",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Login Ok",
+		"token":   token,
 	})
 }
