@@ -7,16 +7,20 @@ import (
 	"net/http"
 
 	"github.com/barcode-api/models"
-	"github.com/barcode-api/repository"
 	"github.com/barcode-api/response"
 	"github.com/gin-gonic/gin"
 )
 
 type User struct {
-	repository repository.UserRepository
+	repository userRepository
 }
 
-func NewUserController(repo repository.UserRepository) *User {
+type userRepository interface {
+	Create(username string, password string) error
+	Login(username string, password string) error
+}
+
+func NewUserController(repo userRepository) *User {
 	return &User{
 		repository: repo,
 	}
@@ -44,6 +48,7 @@ func (u *User) CreateUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, response.Message{
 			Text: "usuário e/ou senha não podem ser vazios",
 		})
+		return
 	}
 	if len(user.Password) <= 8 {
 		c.JSON(http.StatusBadRequest, response.Message{
