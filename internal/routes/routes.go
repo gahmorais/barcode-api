@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func HandlerRoutes(isReleaseMode bool, port int) {
+func HandlerRoutes(isReleaseMode bool, port int, jwtSecret string) {
 	if isReleaseMode {
 		gin.SetMode(gin.ReleaseMode)
 	}
@@ -17,8 +17,8 @@ func HandlerRoutes(isReleaseMode bool, port int) {
 
 	r := gin.Default()
 
-	UserRoutes(r)
-	ProductRoutes(r)
+	UserRoutes(r, jwtSecret)
+	ProductRoutes(r, jwtSecret)
 
 	if err := r.Run(address); err != nil {
 		log.Fatalf("erro ao iniciar servidor: %v", err)

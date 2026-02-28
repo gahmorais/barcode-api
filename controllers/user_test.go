@@ -57,6 +57,22 @@ func decodeMessage(t *testing.T, recorder *httptest.ResponseRecorder) response.M
 	return message
 }
 
+type loginResponse struct {
+	Message string `json:"message"`
+	Token   string `json:"token"`
+}
+
+func decodeLoginResponse(t *testing.T, recorder *httptest.ResponseRecorder) loginResponse {
+	t.Helper()
+
+	var payload loginResponse
+	if err := json.Unmarshal(recorder.Body.Bytes(), &payload); err != nil {
+		t.Fatalf("erro ao decodificar resposta de login: %v", err)
+	}
+
+	return payload
+}
+
 func TestCreateUser(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 
@@ -68,7 +84,7 @@ func TestCreateUser(t *testing.T) {
 				t.Fatalf("payload enviado ao repository está incorreto")
 			}
 			return nil
-		}})
+		}}, "test-secret")
 
 		ctx, recorder := newContextWithBody(t, http.MethodPost, map[string]string{
 			"username": "maria",
@@ -91,7 +107,7 @@ func TestCreateUser(t *testing.T) {
 	})
 
 	t.Run("deve retornar bad request para payload inválido", func(t *testing.T) {
-		controller := NewUserController(userRepoMock{})
+		controller := NewUserController(userRepoMock{}, "test-secret")
 		recorder := httptest.NewRecorder()
 		ctx, _ := gin.CreateTestContext(recorder)
 		ctx.Request = httptest.NewRequest(http.MethodPost, "/", bytes.NewBufferString("{invalid"))
@@ -108,7 +124,7 @@ func TestCreateUser(t *testing.T) {
 		controller := NewUserController(userRepoMock{createFn: func(username, password string) error {
 			called = true
 			return nil
-		}})
+		}}, "test-secret")
 
 		ctx, recorder := newContextWithBody(t, http.MethodPost, map[string]string{
 			"username": "",
@@ -130,7 +146,7 @@ func TestCreateUser(t *testing.T) {
 		controller := NewUserController(userRepoMock{createFn: func(username, password string) error {
 			called = true
 			return nil
-		}})
+		}}, "test-secret")
 
 		ctx, recorder := newContextWithBody(t, http.MethodPost, map[string]string{
 			"username": "maria",
@@ -150,7 +166,7 @@ func TestCreateUser(t *testing.T) {
 	t.Run("deve retornar erro interno quando repository falha", func(t *testing.T) {
 		controller := NewUserController(userRepoMock{createFn: func(username, password string) error {
 			return errors.New("erro de persistência")
-		}})
+		}}, "test-secret")
 
 		ctx, recorder := newContextWithBody(t, http.MethodPost, map[string]string{
 			"username": "maria",
@@ -176,7 +192,7 @@ func TestLogin(t *testing.T) {
 				t.Fatalf("payload enviado ao repository está incorreto")
 			}
 			return nil
-		}})
+		}}, "test-secret")
 
 		ctx, recorder := newContextWithBody(t, http.MethodPost, map[string]string{
 			"UserName": "maria",
@@ -191,12 +207,20 @@ func TestLogin(t *testing.T) {
 		if recorder.Code != http.StatusOK {
 			t.Fatalf("status inesperado: %d", recorder.Code)
 		}
+
+		response := decodeLoginResponse(t, recorder)
+		if response.Message != "Login Ok" {
+			t.Fatalf("mensagem inesperada: %s", response.Message)
+		}
+		if response.Token == "" {
+			t.Fatalf("esperava token jwt na resposta")
+		}
 	})
 
 	t.Run("deve retornar unauthorized quando login falha", func(t *testing.T) {
 		controller := NewUserController(userRepoMock{loginFn: func(username, password string) error {
 			return errors.New("usuário ou senha incorretos")
-		}})
+		}}, "test-secret")
 
 		ctx, recorder := newContextWithBody(t, http.MethodPost, map[string]string{
 			"UserName": "maria",
@@ -211,7 +235,7 @@ func TestLogin(t *testing.T) {
 	})
 
 	t.Run("deve retornar erro para json inválido", func(t *testing.T) {
-		controller := NewUserController(userRepoMock{})
+		controller := NewUserController(userRepoMock{}, "test-secret")
 		recorder := httptest.NewRecorder()
 		ctx, _ := gin.CreateTestContext(recorder)
 		ctx.Request = httptest.NewRequest(http.MethodPost, "/", bytes.NewBufferString("{invalid"))

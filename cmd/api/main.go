@@ -22,5 +22,5 @@ func main() {
 		log.Fatalf("erro ao iniciar banco de dados: %v", err)
 	}
 
-	routes.HandlerRoutes(*isReleaseMode, env.APIPort)
+	routes.HandlerRoutes(*isReleaseMode, env.APIPort, env.JWTSecret)
 }
