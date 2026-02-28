@@ -10,7 +10,7 @@ import (
 func UserRoutes(router *gin.Engine) {
 	db := database.GetDb()
 	userRepository := repository.NewUserRepository(db)
-	userController := controllers.NewUserController(userRepository)
+	userController := controllers.NewUserController(&userRepository)
 
 	group := router.Group("/user")
 
