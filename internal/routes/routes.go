@@ -18,6 +18,7 @@ func HandlerRoutes(isReleaseMode bool, port int, jwtSecret string) {
 	r := gin.Default()
 
 	UserRoutes(r, jwtSecret)
+	AuthRoutes(r, jwtSecret)
 	ProductRoutes(r, jwtSecret)
 
 	if err := r.Run(address); err != nil {
